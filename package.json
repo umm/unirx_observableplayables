@@ -1,10 +1,10 @@
 {
-  "name": "Provide UniRx wrapper for Playable API",
+  "name": "@umm/unirx_observableplayables",
   "version": "1.0.0",
-  "description": "",
-  "homepage": "https:////Provide UniRx wrapper for Playable API",
+  "description": "Provide UniRx wrapper for Playable API",
+  "homepage": "https://github.com/umm-projects/unirx_observableplayables",
   "bugs": {
-    "url": "https:////Provide UniRx wrapper for Playable API/issues"
+    "url": "https://github.com/umm-projects/unirx_observableplayables/issues"
   },
   "scripts": {
     "umm:init": "node ./scripts/umm/init.js",
@@ -15,11 +15,11 @@
     "postuninstall": "npm run umm:uninstall",
     "build:test": "tar -tf $(npm pack -s) && $(npm bin)/rimraf $_"
   },
-  "author": "",
-  "license": "",
+  "author": "Tetsuya Mori",
+  "license": "MIT",
   "repository": {
-    "type": "",
-    "url": "@:/Provide UniRx wrapper for Playable API"
+    "type": "git",
+    "url": "git@github.com:umm-projects/unirx_observableplayables"
   },
   "files": [
     "Assets",
