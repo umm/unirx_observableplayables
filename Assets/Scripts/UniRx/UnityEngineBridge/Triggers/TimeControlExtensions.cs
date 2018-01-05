@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using UniRx;
-using UniRx.Triggers;
+﻿using UnityEngine;
+using UnityEngine.Playables;
 
-namespace UnityEngine.Playables {
+namespace UniRx.Triggers {
 
-    public static class TimeControlExtension {
+    // ReSharper disable once PartialTypeWithSinglePart
+    public static partial class TimeControlExtensions {
 
         public static IObservable<Unit> OnControlTimeStartAsObservable(this MonoBehaviour self) {
             self.AddObservableTimeControlTrigger();
