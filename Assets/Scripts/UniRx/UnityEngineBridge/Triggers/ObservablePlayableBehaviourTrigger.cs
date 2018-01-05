@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 using UnityEngine.Playables;
 
 namespace UniRx.Triggers {
@@ -7,87 +8,84 @@ namespace UniRx.Triggers {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     [SuppressMessage("ReSharper", "UseNullPropagation")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class ObservablePlayableBehaviourTrigger : PlayableBehaviour {
+    public class ObservablePlayableBehaviourTrigger : MonoBehaviour {
 
-        public class PlayableInfo {
+        public struct Information {
 
-            public PlayableBehaviour PlayableBehaviour { get; }
+            public Playable Playable;
 
-            public Playable Playable { get; }
+            public FrameData FrameData;
 
-            public FrameData FrameData { get; }
-
-            public PlayableInfo(PlayableBehaviour playableBehaviour, Playable playable, FrameData frameData) {
-                PlayableBehaviour = playableBehaviour;
-                Playable = playable;
-                FrameData = frameData;
+            public Information(Playable playable, FrameData frameData) {
+                this.Playable = playable;
+                this.FrameData = frameData;
             }
 
         }
 
-        private Subject<PlayableInfo> onGraphStart;
+        private Subject<Information> onGraphStart;
 
         // Called when the owning graph starts playing
-        public override void OnGraphStart(Playable playable) {
+        internal void OnGraphStart(Playable playable) {
             if (this.onGraphStart != null) {
-                this.onGraphStart.OnNext(new PlayableInfo(this, playable, default(FrameData)));
+                this.onGraphStart.OnNext(new Information(playable, default(FrameData)));
             }
         }
 
-        public IObservable<PlayableInfo> OnGraphStartAsObservable() {
-            return this.onGraphStart ?? (this.onGraphStart = new Subject<PlayableInfo>());
+        public IObservable<Information> OnGraphStartAsObservable() {
+            return this.onGraphStart ?? (this.onGraphStart = new Subject<Information>());
         }
 
-        private Subject<PlayableInfo> onGraphStop;
+        private Subject<Information> onGraphStop;
 
         // Called when the owning graph stops playing
-        public override void OnGraphStop(Playable playable) {
+        internal void OnGraphStop(Playable playable) {
             if (this.onGraphStop != null) {
-                this.onGraphStop.OnNext(new PlayableInfo(this, playable, default(FrameData)));
+                this.onGraphStop.OnNext(new Information(playable, default(FrameData)));
             }
         }
 
-        public IObservable<PlayableInfo> OnGraphStopAsObservable() {
-            return this.onGraphStop ?? (this.onGraphStop = new Subject<PlayableInfo>());
+        public IObservable<Information> OnGraphStopAsObservable() {
+            return this.onGraphStop ?? (this.onGraphStop = new Subject<Information>());
         }
 
-        private Subject<PlayableInfo> onBehaviourPlay;
+        private Subject<Information> onBehaviourPlay;
 
         // Called when the state of the playable is set to Play
-        public override void OnBehaviourPlay(Playable playable, FrameData info) {
+        internal void OnBehaviourPlay(Playable playable, FrameData info) {
             if (this.onBehaviourPlay != null) {
-                this.onBehaviourPlay.OnNext(new PlayableInfo(this, playable, info));
+                this.onBehaviourPlay.OnNext(new Information(playable, info));
             }
         }
 
-        public IObservable<PlayableInfo> OnBehaviourPlayAsObservable() {
-            return this.onBehaviourPlay ?? (this.onBehaviourPlay = new Subject<PlayableInfo>());
+        public IObservable<Information> OnBehaviourPlayAsObservable() {
+            return this.onBehaviourPlay ?? (this.onBehaviourPlay = new Subject<Information>());
         }
 
-        private Subject<PlayableInfo> onBehaviourPause;
+        private Subject<Information> onBehaviourPause;
 
         // Called when the state of the playable is set to Paused
-        public override void OnBehaviourPause(Playable playable, FrameData info) {
+        internal void OnBehaviourPause(Playable playable, FrameData info) {
             if (this.onBehaviourPause != null) {
-                this.onBehaviourPause.OnNext(new PlayableInfo(this, playable, info));
+                this.onBehaviourPause.OnNext(new Information(playable, info));
             }
         }
 
-        public IObservable<PlayableInfo> OnBehaviourPauseAsObservable() {
-            return this.onBehaviourPause ?? (this.onBehaviourPause = new Subject<PlayableInfo>());
+        public IObservable<Information> OnBehaviourPauseAsObservable() {
+            return this.onBehaviourPause ?? (this.onBehaviourPause = new Subject<Information>());
         }
 
-        private Subject<PlayableInfo> prepareFrame;
+        private Subject<Information> prepareFrame;
 
         // Called each frame while the state is set to Play
-        public override void PrepareFrame(Playable playable, FrameData info) {
+        internal void PrepareFrame(Playable playable, FrameData info) {
             if (this.prepareFrame != null) {
-                this.prepareFrame.OnNext(new PlayableInfo(this, playable, info));
+                this.prepareFrame.OnNext(new Information(playable, info));
             }
         }
 
-        public IObservable<PlayableInfo> PrepareFrameAsObservable() {
-            return this.prepareFrame ?? (this.prepareFrame = new Subject<PlayableInfo>());
+        public IObservable<Information> PrepareFrameAsObservable() {
+            return this.prepareFrame ?? (this.prepareFrame = new Subject<Information>());
         }
 
     }
