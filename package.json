@@ -1,6 +1,6 @@
 {
   "name": "@umm/unirx_observableplayables",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Provide UniRx wrapper for Playable API",
   "homepage": "https://github.com/umm-projects/unirx_observableplayables",
   "bugs": {
