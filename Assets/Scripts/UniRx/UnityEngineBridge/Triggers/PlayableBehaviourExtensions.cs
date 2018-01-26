@@ -20,6 +20,10 @@ namespace UniRx.Triggers {
             return component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPauseAsObservable();
         }
 
+        public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnBehaviourStopAsObservable(this Component component) {
+            return component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPlayAsObservable().SelectMany(component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPauseAsObservable());
+        }
+
         public static IObservable<ObservablePlayableBehaviourTrigger.Information> PrepareFrameAsObservable(this Component component) {
             return component.GetOrAddObservablePlayableBehaviourTrigger().PrepareFrameAsObservable();
         }
