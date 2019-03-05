@@ -50,6 +50,32 @@ namespace UniRx.Triggers {
             return this.onGraphStop ?? (this.onGraphStop = new Subject<Information>());
         }
 
+        private Subject<Information> onPlayableCreate;
+
+        // Called when the playable is created
+        internal void OnPlayableCreate(Playable playable) {
+            if (this.onPlayableCreate != null) {
+                this.onPlayableCreate.OnNext(new Information(playable, default(FrameData)));
+            }
+        }
+
+        public IObservable<Information> OnPlayableCreateAsObservable() {
+            return this.onPlayableCreate ?? (this.onPlayableCreate = new Subject<Information>());
+        }
+
+        private Subject<Information> onPlayableDestroy;
+
+        // Called when the playable is destroyed
+        internal void OnPlayableDestroy(Playable playable) {
+            if (this.onPlayableDestroy != null) {
+                this.onPlayableDestroy.OnNext(new Information(playable, default(FrameData)));
+            }
+        }
+
+        public IObservable<Information> OnPlayableDestroyAsObservable() {
+            return this.onPlayableDestroy ?? (this.onPlayableDestroy = new Subject<Information>());
+        }
+
         private Subject<Information> onBehaviourPlay;
 
         // Called when the state of the playable is set to Play
