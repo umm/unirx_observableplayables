@@ -13,6 +13,14 @@ namespace UniRx.Triggers {
             return component.GetOrAddObservablePlayableBehaviourTrigger().OnGraphStopAsObservable();
         }
 
+        public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnPlayableCreateAsObservable(this Component component) {
+            return component.GetOrAddObservablePlayableBehaviourTrigger().OnPlayableCreateAsObservable();
+        }
+
+        public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnPlayableDestroyAsObservable(this Component component) {
+            return component.GetOrAddObservablePlayableBehaviourTrigger().OnPlayableDestroyAsObservable();
+        }
+
         public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnBehaviourPlayAsObservable(this Component component) {
             return component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPlayAsObservable();
         }
@@ -23,6 +31,11 @@ namespace UniRx.Triggers {
 
         public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnBehaviourStopAsObservable(this Component component) {
             return component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPlayAsObservable().SelectMany(component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPauseAsObservable().Take(1));
+        }
+
+        // NOTE: In some corner case, OnBehaviourPlayAsObservable is not fired. It's useful for the case.
+        public static IObservable<ObservablePlayableBehaviourTrigger.Information> OnBehaviourStopByPlayableCreateAsObservable(this Component component) {
+            return component.GetOrAddObservablePlayableBehaviourTrigger().OnPlayableCreateAsObservable().SelectMany(component.GetOrAddObservablePlayableBehaviourTrigger().OnBehaviourPauseAsObservable().Take(1));
         }
 
         public static IObservable<ObservablePlayableBehaviourTrigger.Information> PrepareFrameAsObservable(this Component component) {
