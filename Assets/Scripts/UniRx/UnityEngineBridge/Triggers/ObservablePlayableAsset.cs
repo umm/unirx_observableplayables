@@ -7,7 +7,7 @@ namespace UniRx.Triggers {
     public class ObservablePlayableAsset : PlayableAsset {
 
         [SerializeField]
-        private ExposedReference<GameObject> targetGameObject;
+        private ExposedReference<GameObject> targetGameObject = default(ExposedReference<GameObject>);
 
         private ExposedReference<GameObject> TargetGameObject {
             get {
