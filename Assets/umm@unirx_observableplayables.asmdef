@@ -1,7 +1,8 @@
 {
     "name": "umm@unirx_observableplayables",
     "references": [
-        "umm@unirx"
+        "umm@unirx",
+        "Unity.Timeline"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
